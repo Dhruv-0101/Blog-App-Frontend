@@ -48,8 +48,8 @@ export const deletePostAPI = async (postId) => {
 
 //!like post api
 export const likePostAPI = async (postId) => {
-  const response = await axios.put(
-    `${BASE_URL}/likes/${postId}`,
+  const response = await axios.post(
+    `${BASE_URL}/like-post/${postId}`,
     {},
     {
       withCredentials: true,
@@ -59,12 +59,21 @@ export const likePostAPI = async (postId) => {
 };
 //!dislike post api
 export const dislikePostAPI = async (postId) => {
-  const response = await axios.put(
-    `${BASE_URL}/dislikes/${postId}`,
+  const response = await axios.post(
+    `${BASE_URL}/dislike-post/${postId}`,
     {},
     {
       withCredentials: true,
     }
   );
+  return response.data;
+};
+
+export const dislikeCountApi = async (postId) => {
+  const response = await axios.get(`${BASE_URL}/dislike-count/${postId}`);
+  return response.data;
+};
+export const likeCountApi = async (postId) => {
+  const response = await axios.get(`${BASE_URL}/like-count/${postId}`);
   return response.data;
 };

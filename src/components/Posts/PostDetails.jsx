@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
+
 import {
   FaThumbsUp,
   FaThumbsDown,
@@ -11,8 +12,10 @@ import {
 import { useParams } from "react-router-dom";
 import * as Yup from "yup";
 import {
+  dislikeCountApi,
   dislikePostAPI,
   fetchPost,
+  likeCountApi,
   likePostAPI,
 } from "../../APIServices/posts/postsAPI";
 import { RiUserUnfollowFill, RiUserFollowLine } from "react-icons/ri";
@@ -26,6 +29,7 @@ import {
   getCommentsAPI,
 } from "../../APIServices/comments/commentsAPI";
 import { useFormik } from "formik";
+
 const PostDetails = () => {
   const [comment, setComment] = useState("");
   // !Get the post id
@@ -50,6 +54,15 @@ const PostDetails = () => {
   const { data: commentData, refetch: refetchComments } = useQuery({
     queryKey: ["get-comment"],
     queryFn: () => getCommentsAPI(postId),
+  });
+
+  const { data: likedata, refetch: refetchLikeData } = useQuery({
+    queryKey: ["get-like"],
+    queryFn: () => likeCountApi(postId),
+  });
+  const { data: dislikedata, refetch: refetchDislikeData } = useQuery({
+    queryKey: ["get-dislike"],
+    queryFn: () => dislikeCountApi(postId),
   });
 
   const commentMutation = useMutation({
@@ -92,14 +105,31 @@ const PostDetails = () => {
     mutationFn: unfollowUserAPI,
   });
 
-  //---lies & dislikes mutation
+  // ---lies & dislikes mutation
+  // const likePostMutation = useMutation({
+  //   mutationKey: ["likes-post"],
+  //   mutationFn: (postId) => likePostAPI(postId),
+  // });
+  // const dislikePostMutation = useMutation({
+  //   mutationKey: ["dislikes-post"],
+  //   mutationFn: (postId) => dislikePostAPI(postId),
+  // });
   const likePostMutation = useMutation({
-    mutationKey: ["likes"],
-    mutationFn: likePostAPI,
+    mutationKey: ["likes-post"],
+    mutationFn: (postId) => likePostAPI(postId),
+    onSuccess: async () => {
+      await refetchLikeData();
+      await refetchDislikeData();
+    },
   });
+
   const dislikePostMutation = useMutation({
-    mutationKey: ["dislikes"],
-    mutationFn: dislikePostAPI,
+    mutationKey: ["dislikes-post"],
+    mutationFn: (postId) => dislikePostAPI(postId),
+    onSuccess: async () => {
+      await refetchDislikeData();
+      await refetchLikeData();
+    },
   });
 
   //----handler for follow mutation
@@ -191,7 +221,7 @@ const PostDetails = () => {
             onClick={likePostHandler}
           >
             <FaThumbsUp />
-            {data?.postFound?.likes?.length || 0}
+            {likedata?.likesCount || 0}
           </span>
 
           {/* Dislike icon */}
@@ -201,7 +231,7 @@ const PostDetails = () => {
           >
             <FaThumbsDown />
 
-            {data?.postFound?.dislikes?.length || 0}
+            {dislikedata?.dislikesCount || 0}
           </span>
           {/* views icon */}
           <span className="flex items-center gap-1">
