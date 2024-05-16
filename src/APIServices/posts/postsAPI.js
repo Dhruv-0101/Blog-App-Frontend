@@ -1,6 +1,6 @@
 import axios from "axios";
 //create that must return a promise
-const BASE_URL = "http://localhost:8080/api/v1/posts";
+const BASE_URL = "http://localhost:8080/api/v1/post";
 
 //!Create post api
 export const createPostAPI = async (postData) => {
@@ -26,7 +26,7 @@ export const updatePostAPI = async ({ formData, postId }) => {
 //! Fetch all posts
 export const fetchAllPosts = async (filters) => {
   console.log(filters);
-  const posts = await axios.get(BASE_URL, {
+  const posts = await axios.get(`${BASE_URL}/get-posts`, {
     params: filters,
   });
   return posts.data;

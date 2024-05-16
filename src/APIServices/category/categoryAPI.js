@@ -1,6 +1,6 @@
 import axios from "axios";
 //create that must return a promise
-const BASE_URL = "http://localhost:5000/api/v1/categories";
+const BASE_URL = "http://localhost:8080/api/v1/category";
 
 //!Create post api
 export const addCategoryAPI = async (postData) => {
@@ -13,6 +13,6 @@ export const addCategoryAPI = async (postData) => {
 
 //! Fetch all catgories
 export const fetchCategoriesAPI = async () => {
-  const posts = await axios.get(BASE_URL);
+  const posts = await axios.get(`${BASE_URL}/get-all-category`);
   return posts.data;
 };
