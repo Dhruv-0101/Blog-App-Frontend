@@ -5,7 +5,7 @@ const BASE_URL = "http://localhost:8080/api/v1/post";
 //!Create post api
 export const createPostAPI = async (postData) => {
   console.log(postData);
-  const response = await axios.post(`${BASE_URL}/create`, postData, {
+  const response = await axios.post(`${BASE_URL}/create-post`, postData, {
     withCredentials: true,
   });
   return response.data;
@@ -33,7 +33,7 @@ export const fetchAllPosts = async (filters) => {
 };
 //! Fetch  post
 export const fetchPost = async (postId) => {
-  const posts = await axios.get(`${BASE_URL}/${postId}`, {
+  const posts = await axios.get(`${BASE_URL}/get-single-post/${postId}`, {
     withCredentials: true,
   });
   return posts.data;

@@ -134,7 +134,7 @@ const CreatePost = () => {
               name="category"
               options={data?.categories?.map((category) => {
                 return {
-                  value: category._id,
+                  value: category.id,
                   label: category.categoryName,
                 };
               })}

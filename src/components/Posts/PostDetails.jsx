@@ -21,7 +21,10 @@ import {
   unfollowUserAPI,
   userProfileAPI,
 } from "../../APIServices/users/usersAPI";
-import { createCommentAPI } from "../../APIServices/comments/commentsAPI";
+import {
+  createCommentAPI,
+  getCommentsAPI,
+} from "../../APIServices/comments/commentsAPI";
 import { useFormik } from "formik";
 const PostDetails = () => {
   const [comment, setComment] = useState("");
@@ -44,11 +47,36 @@ const PostDetails = () => {
     queryFn: () => userProfileAPI(),
   });
 
+  const { data: commentData, refetch: refetchComments } = useQuery({
+    queryKey: ["get-comment"],
+    queryFn: () => getCommentsAPI(postId),
+  });
+
+  const commentMutation = useMutation({
+    mutationKey: ["create-comment"],
+    mutationFn: async (data) => {
+      try {
+        // Create the comment
+        const newComment = await createCommentAPI(data);
+
+        // Append the new comment to the existing comments
+        commentData.comments.push(newComment);
+
+        // Trigger a UI update
+        refetchComments();
+      } catch (error) {
+        console.log(error);
+        throw error;
+      }
+    },
+  });
+
+  console.log(commentData);
   //----Follow logic----
   //Get the author id
-  const targetId = data?.postFound?.author;
+  const targetId = data?.postFound?.username;
   //get the login user id
-  const userId = profileData?.user?._id;
+  const userId = profileData?.user.id;
   //Get if the user/login is following the user
   const isFollowing = profileData?.user?.following?.find(
     (user) => user?._id?.toString() === targetId?.toString()
@@ -116,12 +144,6 @@ const PostDetails = () => {
       .catch((e) => console.log(e));
   };
 
-  // user mutation
-  const commentMutation = useMutation({
-    mutationKey: ["create-comment"],
-    mutationFn: createCommentAPI,
-  });
-  // formik config
   const formik = useFormik({
     // initial data
     initialValues: {
@@ -132,24 +154,31 @@ const PostDetails = () => {
       content: Yup.string().required("Comment content is required"),
     }),
     // submit
-    onSubmit: (values) => {
+    onSubmit: async (values, { resetForm }) => {
       const data = {
         content: values.content,
         postId,
       };
-      commentMutation
-        .mutateAsync(data)
-        .then(() => {
-          refetchPost();
-        })
-        .catch((e) => console.log(e));
+      try {
+        // Add comment
+        await commentMutation.mutateAsync(data);
+
+        // Reset form after successful submission
+        resetForm();
+
+        // Refetch post data
+        refetchPost();
+      } catch (error) {
+        console.log(error);
+      }
     },
   });
+
   return (
     <div className="container mx-auto p-4">
       <div className="bg-white rounded-lg shadow-lg p-5">
         <img
-          src={data?.postFound?.image?.path}
+          src={data?.postFound?.image}
           alt={data?.postFound?.description}
           className="w-full h-full object-cover rounded-lg mb-4"
         />
@@ -177,7 +206,7 @@ const PostDetails = () => {
           {/* views icon */}
           <span className="flex items-center gap-1">
             <FaEye />
-            {data?.postFound?.viewers?.length || 0}
+            {data?.viewersCount || 0}
           </span>
         </div>
 
@@ -201,7 +230,7 @@ const PostDetails = () => {
         )}
 
         {/* author */}
-        <span className="ml-2">{/* {postData?.author?.username} */}</span>
+        <span className="ml-2">{data?.postFound?.user?.username}</span>
 
         {/* post details */}
         <div className="flex justify-between items-center mb-3">
@@ -242,11 +271,11 @@ const PostDetails = () => {
         {/* Comments List */}
         <div>
           <h2 className="text-xl font-bold mb-2">Comments:</h2>
-          {data?.postFound?.comments?.map((comment, index) => (
+          {commentData?.comments?.map((comment, index) => (
             <div key={index} className="border-b border-gray-300 mb-2 pb-2">
               <p className="text-gray-800">{comment.content}</p>
               <span className="text-gray-600 text-sm">
-                - {comment.author?.username}
+                - {comment?.user?.username}
               </span>
               <small className="text-gray-600 text-sm ml-2">
                 {new Date(comment.createdAt).toLocaleDateString()}

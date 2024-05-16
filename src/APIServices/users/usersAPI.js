@@ -3,7 +3,7 @@ import axios from "axios";
 
 // ! Register user
 export const registerAPI = async (userData) => {
-  const response = await axios.post(`${BASE_URL}/users/register`, {
+  const response = await axios.post(`${BASE_URL}/users/create-user`, {
     username: userData?.username,
     password: userData?.password,
     email: userData?.email,
