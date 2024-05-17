@@ -20,6 +20,7 @@ import {
 } from "../../APIServices/posts/postsAPI";
 import { RiUserUnfollowFill, RiUserFollowLine } from "react-icons/ri";
 import {
+  FollowUnFollowAPI,
   followUserAPI,
   unfollowUserAPI,
   userProfileAPI,
@@ -87,22 +88,38 @@ const PostDetails = () => {
   console.log(commentData);
   //----Follow logic----
   //Get the author id
-  const targetId = data?.postFound?.username;
+  const targetId = data?.postFound?.userId;
   //get the login user id
   const userId = profileData?.user.id;
   //Get if the user/login is following the user
-  const isFollowing = profileData?.user?.following?.find(
-    (user) => user?._id?.toString() === targetId?.toString()
-  );
 
+  // const { data: followunfollowdata, refetch: refetchFollowUnFollowData } =
+  //   useQuery({
+  //     queryKey: ["get-followers"],
+  //     queryFn: () => FollowUnFollowAPI(targetId),
+  //   });
+  const { data: followunfollowdata, refetch: refetchFollowUnFollowData } =
+    useQuery({
+      queryKey: ["get-followers"],
+      queryFn: () => (targetId ? FollowUnFollowAPI(targetId) : null),
+      enabled: !!targetId, // Ensure the query runs only when targetId is defined
+    });
+  console.log(followunfollowdata);
+  const isFollowing = followunfollowdata?.following;
   //---Follow & unfollow mutation
   const followUserMutation = useMutation({
     mutationKey: ["follow"],
     mutationFn: followUserAPI,
+    onSuccess: async () => {
+      await refetchFollowUnFollowData();
+    },
   });
   const unfollowUserMutation = useMutation({
     mutationKey: ["unfollow"],
     mutationFn: unfollowUserAPI,
+    onSuccess: async () => {
+      await refetchFollowUnFollowData();
+    },
   });
 
   // ---lies & dislikes mutation

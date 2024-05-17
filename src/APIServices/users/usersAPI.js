@@ -59,8 +59,8 @@ export const logoutAPI = async (userData) => {
 
 // ! follw user
 export const followUserAPI = async (userId) => {
-  const response = await axios.put(
-    `${BASE_URL}/users/follow/${userId}`,
+  const response = await axios.post(
+    `${BASE_URL}/users/follow-user/${userId}`,
     {},
     {
       withCredentials: true,
@@ -71,8 +71,8 @@ export const followUserAPI = async (userId) => {
 };
 // ! unfollw user
 export const unfollowUserAPI = async (userId) => {
-  const response = await axios.put(
-    `${BASE_URL}/users/unfollow/${userId}`,
+  const response = await axios.post(
+    `${BASE_URL}/users/unfollow-user/${userId}`,
     {},
     {
       withCredentials: true,
@@ -81,6 +81,17 @@ export const unfollowUserAPI = async (userId) => {
 
   return response.data;
 };
+export const FollowUnFollowAPI = async (targetId) => {
+  const response = await axios.get(
+    `${BASE_URL}/users/get-user-follow/${targetId}`,
+    {
+      withCredentials: true,
+    }
+  );
+
+  return response.data;
+};
+
 // ! send Email verification token
 export const sendEmailVerificatonTokenAPI = async () => {
   const response = await axios.put(
