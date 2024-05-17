@@ -94,8 +94,8 @@ export const FollowUnFollowAPI = async (targetId) => {
 
 // ! send Email verification token
 export const sendEmailVerificatonTokenAPI = async () => {
-  const response = await axios.put(
-    `${BASE_URL}/users/account-verification-email`,
+  const response = await axios.post(
+    `${BASE_URL}/users/email-verify`,
     {},
     {
       withCredentials: true,
@@ -121,8 +121,8 @@ export const updateEmailAPI = async (email) => {
 
 // !Verify user account
 export const verifyUserAccountAPI = async (verifyToken) => {
-  const response = await axios.put(
-    `${BASE_URL}/users/verify-account/${verifyToken}`,
+  const response = await axios.post(
+    `${BASE_URL}/users/email-verification/${verifyToken}`,
     {},
     {
       withCredentials: true,

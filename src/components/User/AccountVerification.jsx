@@ -21,6 +21,7 @@ const AccountVerifiedComponent = () => {
     mutationKey: ["verify-account"],
     mutationFn: verifyUserAccountAPI,
   });
+  console.log(mutation);
 
   //Useeffect for automatically call the mutation
   useEffect(() => {
@@ -34,7 +35,7 @@ const AccountVerifiedComponent = () => {
       ) : mutation?.isError ? (
         <AlertMessage
           type="error"
-          message="Account verification failed, try again please. If you think it;'s a bug refresh the page"
+          message="Account verification failed, try again please. If you think it's a bug refresh the page"
         />
       ) : (
         mutation.isSuccess && (
