@@ -19,10 +19,16 @@ function classNames(...classes) {
 export default function PrivateNavbar() {
   // dispatch hook
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   // user mutation
   const logoutMutation = useMutation({
     mutationKey: ["logout"],
     mutationFn: logoutAPI,
+    onSuccess: () => {
+      // On successful logout, redirect to the login page
+      navigate("/login");
+    },
   });
   //logout handler
   const logoutHandler = async () => {
