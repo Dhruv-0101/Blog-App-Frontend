@@ -1,10 +1,10 @@
 import axios from "axios";
 //create that must return a promise
-const BASE_URL = "http://localhost:5000/api/v1/plans";
+const BASE_URL = "http://localhost:8080/api/v1/plan";
 
 //!Create post api
 export const createPlanAPI = async (planData) => {
-  const response = await axios.post(`${BASE_URL}/create`, planData, {
+  const response = await axios.post(`${BASE_URL}/create-plan`, planData, {
     withCredentials: true,
   });
   return response.data;
@@ -12,7 +12,7 @@ export const createPlanAPI = async (planData) => {
 
 //! Fetch all plans
 export const fetchPlansAPI = async () => {
-  const plans = await axios.get(BASE_URL);
+  const plans = await axios.get(`${BASE_URL}/get-plan`);
   return plans.data;
 };
 //! Fetch  plan

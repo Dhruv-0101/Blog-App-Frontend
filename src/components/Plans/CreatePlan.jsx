@@ -34,7 +34,7 @@ const CreatePlan = () => {
       //prepare the data for creation
       const planData = {
         planName: values.planName,
-        features: values.features.split(",").map((feature) => feature.trim()),
+        features: values.features,
         price: values.price,
       };
 
