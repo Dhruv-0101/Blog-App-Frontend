@@ -172,3 +172,10 @@ export const resetPasswordAPI = async (data) => {
 
   return response.data;
 };
+
+export const getFollowers = async () => {
+  const response = await axios.get(`${BASE_URL}/users/get-followers`, {
+    withCredentials: true,
+  });
+  return response.data;
+};
