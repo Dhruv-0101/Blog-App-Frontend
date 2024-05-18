@@ -148,7 +148,7 @@ export const forgotPasswordAPI = async (email) => {
 // !upload profile pic
 export const uplaodProfilePicAPI = async (formData) => {
   const response = await axios.put(
-    `${BASE_URL}/users/upload-profile-picture`,
+    `${BASE_URL}/users/upload-profilephoto`,
     formData,
     {
       withCredentials: true,
