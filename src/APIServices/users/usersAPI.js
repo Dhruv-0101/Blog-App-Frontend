@@ -134,13 +134,13 @@ export const verifyUserAccountAPI = async (verifyToken) => {
 // !forgot password
 export const forgotPasswordAPI = async (email) => {
   const response = await axios.post(
-    `${BASE_URL}/users/forgot-password`,
+    `${BASE_URL}/users/resetpssword-email`,
     {
       email,
-    },
-    {
-      withCredentials: true,
     }
+    // {
+    //   withCredentials: true,
+    // }
   );
 
   return response.data;
@@ -161,13 +161,13 @@ export const uplaodProfilePicAPI = async (formData) => {
 // !reset password
 export const resetPasswordAPI = async (data) => {
   const response = await axios.post(
-    `${BASE_URL}/users/reset-password/${data?.verifyToken}`,
+    `${BASE_URL}/users/password-reset/${data?.verifyToken}`,
     {
       password: data?.password,
-    },
-    {
-      withCredentials: true,
     }
+    // {
+    //   withCredentials: true,
+    // }
   );
 
   return response.data;
