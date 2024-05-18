@@ -7,6 +7,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { FaBlog } from "react-icons/fa6";
 import { Link, Outlet } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 
 import {
   FaUserEdit,
@@ -16,6 +17,7 @@ import {
   FaTags,
   FaWallet,
 } from "react-icons/fa";
+import { userProfileAPI } from "../../APIServices/users/usersAPI";
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: HomeIcon, current: true },
@@ -70,6 +72,12 @@ function classNames(...classes) {
 export default function UserDashbaord() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   //Get the auth user from redux store
+
+  const { data: profileData, refetch: refetchProfile } = useQuery({
+    queryKey: ["profile-photo"],
+    queryFn: () => userProfileAPI(),
+  });
+  console.log(profileData);
 
   return (
     <>
