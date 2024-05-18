@@ -7,7 +7,7 @@ const MyFollowers = () => {
   //fetch userProfile
   //fetch userProfile
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["get-profile"],
+    queryKey: ["get-followers"],
     queryFn: getFollowers,
   });
   console.log(data);

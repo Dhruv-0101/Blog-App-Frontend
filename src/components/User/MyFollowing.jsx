@@ -1,16 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
-import { userProfileAPI } from "../../APIServices/users/usersAPI";
+import { getFollowing, userProfileAPI } from "../../APIServices/users/usersAPI";
 import Avatar from "./Avatar";
 
 const MyFollowing = () => {
   //fetch userProfile
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["profile"],
-    queryFn: userProfileAPI,
+    queryKey: ["get-following"],
+    queryFn: getFollowing,
   });
   //get the user following
-  const myFollowing = data?.user?.following;
+  const myFollowing = data?.following;
 
   return (
     <section className="relative py-20 md:py-32 overflow-hidden bg-gray-50">

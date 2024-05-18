@@ -179,3 +179,9 @@ export const getFollowers = async () => {
   });
   return response.data;
 };
+export const getFollowing = async () => {
+  const response = await axios.get(`${BASE_URL}/users/get-following`, {
+    withCredentials: true,
+  });
+  return response.data;
+};
