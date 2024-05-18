@@ -117,7 +117,7 @@ export default function PrivateNavbar() {
                         <span className="absolute -inset-1.5" />
                         <span className="sr-only">Open user menu</span>
                         {/* Profile Image */}
-                        {profileData?.user?.profilePicture ? (
+                        {/* {profileData?.user?.profilePicture ? (
                           <img
                             className="h-10 w-10 rounded-full"
                             src={profileData?.user?.profilePicture}
@@ -125,6 +125,19 @@ export default function PrivateNavbar() {
                           />
                         ) : (
                           <Avatar />
+                        )} */}
+                        {profileData?.user?.profilePicture ? (
+                          <img
+                            className="h-10 w-10 rounded-full"
+                            src={profileData?.user?.profilePicture}
+                            alt="profile"
+                          />
+                        ) : (
+                          <img
+                            className="h-10 w-10 rounded-full"
+                            src="https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250" 
+                            alt="profile"
+                          />
                         )}
                       </Menu.Button>
                     </div>
