@@ -34,6 +34,7 @@ export default function PrivateNavbar() {
     onSuccess: () => {
       // On successful logout, redirect to the login page
       navigate("/login");
+      window.location.reload();
     },
   });
   //logout handler
@@ -135,7 +136,7 @@ export default function PrivateNavbar() {
                         ) : (
                           <img
                             className="h-10 w-10 rounded-full"
-                            src="https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250" 
+                            src="https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250"
                             alt="profile"
                           />
                         )}
