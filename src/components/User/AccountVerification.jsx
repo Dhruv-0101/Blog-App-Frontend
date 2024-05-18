@@ -35,7 +35,7 @@ const AccountVerifiedComponent = () => {
       ) : mutation?.isError ? (
         <AlertMessage
           type="error"
-          message="Account verification failed, try again please. If you think it's a bug refresh the page"
+          message="Account verification failed, Link is Valid only For 1 Minute. Please try Again"
         />
       ) : (
         mutation.isSuccess && (
