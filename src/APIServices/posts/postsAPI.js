@@ -77,3 +77,10 @@ export const likeCountApi = async (postId) => {
   const response = await axios.get(`${BASE_URL}/like-count/${postId}`);
   return response.data;
 };
+
+export const getUserPosts = async () => {
+  const response = await axios.get(`${BASE_URL}/my-posts`, {
+    withCredentials: true,
+  });
+  return response.data;
+};

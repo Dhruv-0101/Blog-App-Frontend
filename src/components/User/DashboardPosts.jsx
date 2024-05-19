@@ -5,13 +5,14 @@ import { Link } from "react-router-dom";
 import { htmlToText } from "html-to-text";
 import { userProfileAPI } from "../../APIServices/users/usersAPI";
 import truncateString from "../../utils/truncateString";
-import { deletePostAPI } from "../../APIServices/posts/postsAPI";
+import { deletePostAPI, getUserPosts } from "../../APIServices/posts/postsAPI";
 
 const DashboardPosts = () => {
   const { data, isLoading, isError, error, refetch } = useQuery({
     queryKey: ["profile"],
-    queryFn: userProfileAPI,
+    queryFn: getUserPosts,
   });
+  console.log(data);
   //delete mutation
   const deletePostMutation = useMutation({
     mutationKey: ["delete-post"],
@@ -27,7 +28,7 @@ const DashboardPosts = () => {
       })
       .catch((e) => console.log(e));
   };
-  const userPosts = data?.user?.posts;
+  const userPosts = data?.userPosts;
   console.log(userPosts);
   return (
     <section className="py-8">
@@ -61,7 +62,7 @@ const DashboardPosts = () => {
                         <tr className="text-xs bg-gray-50">
                           <td className="py-5 px-6 font-medium flex items-center space-x-2">
                             <img
-                              src={post?.image?.path}
+                              src={post?.image}
                               className="w-10 h-10 object-cover rounded-full"
                             />
                             <div>
