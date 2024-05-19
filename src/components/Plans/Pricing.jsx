@@ -38,7 +38,7 @@ const Pricing = () => {
               </h2>
               <div className="flex items-center gap-4 flex-wrap mb-6">
                 <h2 className="text-6xl font-bold font-heading">
-                  $ {freePlan?.[0]?.price}
+                  ₹ {freePlan?.[0]?.price}
                 </h2>
                 <p className="text-xl font-medium">per month</p>
               </div>
@@ -88,9 +88,9 @@ const Pricing = () => {
               </h2>
               <div className="flex items-center gap-4 flex-wrap mb-6">
                 <h2 className="text-white text-6xl font-bold font-heading">
-                  $ {premiumPlan?.[0]?.price}
+                  ₹ {premiumPlan?.[0]?.price}
                 </h2>
-                <p className="text-white text-xl font-medium">Life Time</p>
+                <p className="text-white text-xl font-medium"> For Life Time</p>
               </div>
               <Link
                 className="w-full text-center h-14 py-4 px-6 rounded-full bg-white border border-gray-200 shadow hover:bg-gray-50 focus:ring focus:ring-orange-200 transition duration-200 mb-8 flex items-center justify-center gap-2"
