@@ -17,6 +17,7 @@ const CheckoutForm = () => {
     mutationKey: ["checkout"],
     mutationFn: paymentIntentAPI,
   });
+  console.log(paymentMutation);
   //configure stripe
   const stripe = useStripe();
   const elements = useElements();
@@ -69,7 +70,7 @@ const CheckoutForm = () => {
         {paymentMutation?.isError && (
           <AlertMessage
             type="error"
-            message={mutation?.error?.response?.data?.message}
+            message={paymentMutation?.error?.response?.data?.message}
           />
         )}
         <button className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gradient-to-r from-purple-500 to-blue-500 hover:from-indigo-600 hover:to-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
