@@ -84,3 +84,10 @@ export const getUserPosts = async () => {
   });
   return response.data;
 };
+export const myPostViews = async () => {
+  const response = await axios.get(`${BASE_URL}/my-posts-views`, {
+    withCredentials: true,
+  });
+  return response.data;
+};
+

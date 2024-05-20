@@ -17,12 +17,19 @@ import {
 } from "../../APIServices/users/usersAPI";
 import AlertMessage from "../Alert/AlertMessage";
 import { getMyEarningsAPI } from "../../APIServices/earnings/earningsAPI";
+import { myPostViews } from "../../APIServices/posts/postsAPI";
 
 const AccountSummaryDashboard = () => {
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["profile"],
     queryFn: userProfileAPI,
   });
+  const { data: mypostsviews } = useQuery({
+    queryKey: ["my-post-views"],
+    queryFn: myPostViews,
+  });
+  console.log(mypostsviews);
+
   //check if user has email
 
   const hasEmail = data?.user?.email;
@@ -55,12 +62,13 @@ const AccountSummaryDashboard = () => {
 
   //loop through the users posts to update the initial counters
 
-  data?.user?.posts?.forEach((post) => {
-    totalViews += post.viewers.length;
-    totalLikes += post.likes.length;
-    totalDislikes += post.dislikes.length;
-    totalComments += post.comments.length;
-  });
+  // data?.user?.posts?.forEach((post) => {
+  //   totalViews += post.viewers.length;
+  //   totalLikes += post.likes.length;
+  //   totalDislikes += post.dislikes.length;
+  //   totalComments += post.comments.length;
+  // });
+  totalViews += mypostsviews?.totalUserViews;
 
   const { data: earnings } = useQuery({
     queryKey: ["my-earnings"],
@@ -74,7 +82,7 @@ const AccountSummaryDashboard = () => {
     {
       icon: <FaEye />,
       label: "Views",
-      value: totalViews,
+      value: totalViews ? totalViews : 0,
       bgColor: "bg-blue-500",
     },
     {
