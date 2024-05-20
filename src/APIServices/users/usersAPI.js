@@ -185,3 +185,21 @@ export const getFollowing = async () => {
   });
   return response.data;
 };
+export const getFollowersCount = async () => {
+  const response = await axios.get(
+    `${BASE_URL}/users/get-followers-dashboard-count`,
+    {
+      withCredentials: true,
+    }
+  );
+  return response.data;
+};
+export const getFollowingsCount = async () => {
+  const response = await axios.get(
+    `${BASE_URL}/users/get-followings-dashboard-count`,
+    {
+      withCredentials: true,
+    }
+  );
+  return response.data;
+};

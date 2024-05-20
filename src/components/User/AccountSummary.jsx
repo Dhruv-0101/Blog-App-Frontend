@@ -12,6 +12,8 @@ import {
 
 import { Link } from "react-router-dom";
 import {
+  getFollowersCount,
+  getFollowingsCount,
   sendEmailVerificatonTokenAPI,
   userProfileAPI,
 } from "../../APIServices/users/usersAPI";
@@ -28,7 +30,14 @@ const AccountSummaryDashboard = () => {
     queryKey: ["my-post-views"],
     queryFn: myPostViews,
   });
-  console.log(mypostsviews);
+  const { data: myFollowersCount } = useQuery({
+    queryKey: ["my-followers-count"],
+    queryFn: getFollowersCount,
+  });
+  const { data: MyFollowingsCount } = useQuery({
+    queryKey: ["my-followings-count"],
+    queryFn: getFollowingsCount,
+  });
 
   //check if user has email
 
@@ -42,10 +51,10 @@ const AccountSummaryDashboard = () => {
   const isEmailVerified = data?.user?.isEmailVerified;
 
   //total followers
-  const totalFollowers = data?.user?.followers?.length;
+  const totalFollowers = myFollowersCount?.followersCount;
 
   //total following
-  const totalFollowing = data?.user?.following?.length;
+  const totalFollowing = MyFollowingsCount?.followersCount;
 
   //get user posts
 
