@@ -90,4 +90,9 @@ export const myPostViews = async () => {
   });
   return response.data;
 };
-
+export const myPostCount = async () => {
+  const response = await axios.get(`${BASE_URL}/my-posts-count`, {
+    withCredentials: true,
+  });
+  return response.data;
+};

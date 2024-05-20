@@ -19,7 +19,7 @@ import {
 } from "../../APIServices/users/usersAPI";
 import AlertMessage from "../Alert/AlertMessage";
 import { getMyEarningsAPI } from "../../APIServices/earnings/earningsAPI";
-import { myPostViews } from "../../APIServices/posts/postsAPI";
+import { myPostCount, myPostViews } from "../../APIServices/posts/postsAPI";
 
 const AccountSummaryDashboard = () => {
   const { data, isLoading, isError, error } = useQuery({
@@ -38,6 +38,11 @@ const AccountSummaryDashboard = () => {
     queryKey: ["my-followings-count"],
     queryFn: getFollowingsCount,
   });
+  const { data: myPostCounts } = useQuery({
+    queryKey: ["my-post-count"],
+    queryFn: myPostCount,
+  });
+  console.log(myPostCounts)
 
   //check if user has email
 
@@ -58,7 +63,8 @@ const AccountSummaryDashboard = () => {
 
   //get user posts
 
-  const userPosts = data?.user?.posts?.length;
+  const userPosts = myPostCounts?.postsCount;
+
 
   //there is a view count in the post object so calculate the total views
 
