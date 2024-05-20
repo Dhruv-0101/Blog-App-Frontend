@@ -19,7 +19,12 @@ import {
 } from "../../APIServices/users/usersAPI";
 import AlertMessage from "../Alert/AlertMessage";
 import { getMyEarningsAPI } from "../../APIServices/earnings/earningsAPI";
-import { myPostCount, myPostViews } from "../../APIServices/posts/postsAPI";
+import {
+  getPostDisLikes,
+  getPostLikes,
+  myPostCount,
+  myPostViews,
+} from "../../APIServices/posts/postsAPI";
 
 const AccountSummaryDashboard = () => {
   const { data, isLoading, isError, error } = useQuery({
@@ -42,7 +47,15 @@ const AccountSummaryDashboard = () => {
     queryKey: ["my-post-count"],
     queryFn: myPostCount,
   });
-  console.log(myPostCounts)
+  const { data: mypostlikes } = useQuery({
+    queryKey: ["my-post-likes"],
+    queryFn: getPostLikes,
+  });
+  const { data: mypostDislikes } = useQuery({
+    queryKey: ["my-post-dislikes"],
+    queryFn: getPostDisLikes,
+  });
+  console.log(mypostDislikes);
 
   //check if user has email
 
@@ -65,7 +78,6 @@ const AccountSummaryDashboard = () => {
 
   const userPosts = myPostCounts?.postsCount;
 
-
   //there is a view count in the post object so calculate the total views
 
   //initial counters
@@ -84,6 +96,8 @@ const AccountSummaryDashboard = () => {
   //   totalComments += post.comments.length;
   // });
   totalViews += mypostsviews?.totalUserViews;
+  totalLikes += mypostlikes?.totalLikesCount;
+  totalDislikes += mypostDislikes?.totalDisLikesCount;
 
   const { data: earnings } = useQuery({
     queryKey: ["my-earnings"],

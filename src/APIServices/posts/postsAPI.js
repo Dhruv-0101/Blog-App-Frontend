@@ -96,3 +96,15 @@ export const myPostCount = async () => {
   });
   return response.data;
 };
+export const getPostLikes = async () => {
+  const response = await axios.get(`${BASE_URL}/my-posts-like`, {
+    withCredentials: true,
+  });
+  return response.data;
+};
+export const getPostDisLikes = async () => {
+  const response = await axios.get(`${BASE_URL}/my-posts-dislike`, {
+    withCredentials: true,
+  });
+  return response.data;
+};
