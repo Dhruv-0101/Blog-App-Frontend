@@ -108,3 +108,8 @@ export const getPostDisLikes = async () => {
   });
   return response.data;
 };
+
+export const creatorRankings = async () => {
+  const response = await axios.get(`${BASE_URL}/get-user-post-rankings`);
+  return response.data;
+};

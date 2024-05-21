@@ -3,11 +3,12 @@ import React from "react";
 import { FaTrophy, FaDollarSign } from "react-icons/fa";
 import { fetchAllEarningsAPI } from "../../APIServices/earnings/earningsAPI";
 import Avatar from "./Avatar";
+import { creatorRankings } from "../../APIServices/posts/postsAPI";
 
 const Rankings = () => {
   const { data, isError, isLoading, isSuccess, error } = useQuery({
     queryKey: ["ranking"],
-    queryFn: fetchAllEarningsAPI,
+    queryFn: creatorRankings,
   });
   console.log(data);
   return (
@@ -26,7 +27,7 @@ const Rankings = () => {
                 </div>
               </div>
               <div className="divide-y divide-gray-200">
-                {data?.earnings?.map((ranking, index) => (
+                {data?.map((user, index) => (
                   <div
                     key={index}
                     className="pt-6 pb-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7"
@@ -37,11 +38,11 @@ const Rankings = () => {
                           index === 0 ? "text-yellow-500" : "text-gray-500"
                         }`}
                       >
-                        {`#${ranking.rank}`}
+                        {`#${user?.rank}`}
                       </div>
-                      {ranking?.user?.profilePicture ? (
+                      {user?.profilePicture ? (
                         <img
-                          src={ranking?.user?.profilePicture}
+                          src={user?.profilePicture}
                           alt="avatar"
                           className="w-12 h-12 rounded-full"
                         />
@@ -49,15 +50,15 @@ const Rankings = () => {
                         <Avatar />
                       )}
                       <div className="text-black font-medium">
-                        {ranking.user.username}
+                        {user.username}
                       </div>
                       <div className="text-gray-600">
-                        {`Posts: ${ranking.user.posts?.length}`}
+                        {`Posts: ${user.totalPosts}`}
                       </div>
                       <div className="ml-auto flex items-center space-x-2">
                         <FaDollarSign className="text-green-500 text-xl" />
                         <div className="text-gray-600 font-medium">
-                          {ranking.totalAmount?.toFixed(2)}
+                          {user.totalEarnings?.toFixed(2)}
                         </div>
                       </div>
                     </div>
