@@ -122,7 +122,7 @@ const AccountSummaryDashboard = () => {
     {
       icon: <FaDollarSign />,
       label: "Earnings",
-      value: `$${myEarningcount.totalEarnings?.toFixed(2)}`,
+      value: `$${myEarningcount?.totalEarnings?.toFixed(2)}`,
       bgColor: "bg-green-500",
     },
     {
