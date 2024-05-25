@@ -87,12 +87,12 @@ const DashboardPosts = () => {
                             </span>
                           </td>
                           <td className="flex items-center mb-10 space-x-2">
-                            <Link to={`/dashboard/update-post/${post._id}`}>
+                            <Link to={`/dashboard/update-post/${post.id}`}>
                               <FiEdit className="text-green-500 cursor-pointer" />
                             </Link>
-                            <button onClick={() => handlePost(post._id)}>
+                            {/* <button onClick={() => handlePost(post._id)}>
                               <FiTrash2 className="text-red-500 cursor-pointer" />
-                            </button>
+                            </button> */}
                           </td>
                         </tr>
                       );

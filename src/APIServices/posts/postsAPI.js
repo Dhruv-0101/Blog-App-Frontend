@@ -13,7 +13,7 @@ export const createPostAPI = async (postData) => {
 //!update post api
 export const updatePostAPI = async ({ formData, postId }) => {
   const response = await axios.put(
-    `${BASE_URL}/${postId}`,
+    `${BASE_URL}/update-single-post/${postId}`,
 
     formData,
 
