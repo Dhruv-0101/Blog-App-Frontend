@@ -26,10 +26,10 @@ const MyFollowers = () => {
             <p className="text-lg text-gray-500 mb-6">
               Here are all the people who follow you.
             </p>
-            <a
+            {/* <a
               className="inline-flex py-4 px-6 items-center text-orange-900 font-semibold bg-gray-50 border border-gray-200 hover:border-orange-900 rounded-full transition duration-200"
               href="#"
-            ></a>
+            ></a> */}
           </div>
           <div className="flex flex-wrap -mx-4 -mb-8">
             {myFollowers?.map((follower) => {
