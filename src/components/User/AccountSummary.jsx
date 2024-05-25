@@ -12,6 +12,7 @@ import {
 
 import { Link } from "react-router-dom";
 import {
+  getEarningCount,
   getFollowersCount,
   getFollowingsCount,
   sendEmailVerificatonTokenAPI,
@@ -55,7 +56,11 @@ const AccountSummaryDashboard = () => {
     queryKey: ["my-post-dislikes"],
     queryFn: getPostDisLikes,
   });
-  console.log(mypostDislikes);
+  const { data: myEarningcount } = useQuery({
+    queryKey: ["my-earning-counts"],
+    queryFn: getEarningCount,
+  });
+  console.log(myEarningcount);
 
   //check if user has email
 
@@ -99,14 +104,14 @@ const AccountSummaryDashboard = () => {
   totalLikes += mypostlikes?.totalLikesCount;
   totalDislikes += mypostDislikes?.totalDisLikesCount;
 
-  const { data: earnings } = useQuery({
-    queryKey: ["my-earnings"],
-    queryFn: getMyEarningsAPI,
-  });
+  // const { data: earnings } = useQuery({
+  //   queryKey: ["my-earnings"],
+  //   queryFn: getMyEarningsAPI,
+  // });
 
-  //Calc total amount
-  const totalEarnings = earnings?.reduce((acc, curr) => acc + curr.amount, 0);
-  console.log(totalEarnings);
+  // //Calc total amount
+  // const totalEarnings = earnings?.reduce((acc, curr) => acc + curr.amount, 0);
+  // console.log(totalEarnings);
   const stats = [
     {
       icon: <FaEye />,
@@ -117,7 +122,7 @@ const AccountSummaryDashboard = () => {
     {
       icon: <FaDollarSign />,
       label: "Earnings",
-      value: `$${totalEarnings?.toFixed(2)}`,
+      value: `$${myEarningcount.totalEarnings?.toFixed(2)}`,
       bgColor: "bg-green-500",
     },
     {

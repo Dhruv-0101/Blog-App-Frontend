@@ -203,3 +203,9 @@ export const getFollowingsCount = async () => {
   );
   return response.data;
 };
+export const getEarningCount = async () => {
+  const response = await axios.get(`${BASE_URL}/users/get-earning-dashboard`, {
+    withCredentials: true,
+  });
+  return response.data;
+};
