@@ -6,7 +6,10 @@ import { Link } from "react-router-dom";
 import NoDataFound from "../Alert/NoDataFound";
 import AlertMessage from "../Alert/AlertMessage";
 import PostCategory from "../Category/PostCategory";
-import { fetchCategoriesAPI } from "../../APIServices/category/categoryAPI";
+import {
+  fetchCategoriesAPI,
+  fetchCategoriesPostCount,
+} from "../../APIServices/category/categoryAPI";
 import { FaSearch } from "react-icons/fa";
 import { MdClear } from "react-icons/md";
 import truncateString from "../../utils/truncateString";
@@ -62,7 +65,7 @@ const PostsList = () => {
   // Fetch categories
   const { data: categories } = useQuery({
     queryKey: ["category-lists"],
-    queryFn: fetchCategoriesAPI,
+    queryFn: fetchCategoriesPostCount,
   });
 
   //delete handler

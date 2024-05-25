@@ -16,3 +16,7 @@ export const fetchCategoriesAPI = async () => {
   const posts = await axios.get(`${BASE_URL}/get-all-category`);
   return posts.data;
 };
+export const fetchCategoriesPostCount = async () => {
+  const posts = await axios.get(`${BASE_URL}/get-category-post`);
+  return posts.data;
+};
