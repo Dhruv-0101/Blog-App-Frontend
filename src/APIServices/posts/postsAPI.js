@@ -38,6 +38,12 @@ export const fetchPost = async (postId) => {
   });
   return posts.data;
 };
+export const fetchCommentCounts = async (postId) => {
+  const posts = await axios.get(`${BASE_URL}/get-user-post-comments`, {
+    withCredentials: true,
+  });
+  return posts.data;
+};
 //! delete  post
 export const deletePostAPI = async (postId) => {
   const posts = await axios.delete(`${BASE_URL}/${postId}`, {

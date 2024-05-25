@@ -21,6 +21,7 @@ import {
 import AlertMessage from "../Alert/AlertMessage";
 import { getMyEarningsAPI } from "../../APIServices/earnings/earningsAPI";
 import {
+  fetchCommentCounts,
   getPostDisLikes,
   getPostLikes,
   myPostCount,
@@ -60,7 +61,11 @@ const AccountSummaryDashboard = () => {
     queryKey: ["my-earning-counts"],
     queryFn: getEarningCount,
   });
-  console.log(myEarningcount);
+  const { data: CommentCount } = useQuery({
+    queryKey: ["my-comment-counts"],
+    queryFn: fetchCommentCounts,
+  });
+  console.log(CommentCount);
 
   //check if user has email
 
@@ -122,7 +127,7 @@ const AccountSummaryDashboard = () => {
     {
       icon: <FaDollarSign />,
       label: "Earnings",
-      value: `$${myEarningcount?.totalEarnings?.toFixed(2)}`,
+      value: `$${(myEarningcount?.totalEarnings || 0).toFixed(2)}`,
       bgColor: "bg-green-500",
     },
     {
@@ -158,7 +163,7 @@ const AccountSummaryDashboard = () => {
     {
       icon: <FaCommentDots />,
       label: "Comments",
-      value: totalComments,
+      value: CommentCount?.totalCommentCount || 0,
       bgColor: "bg-teal-500",
     },
   ];
