@@ -90,7 +90,7 @@ const PostDetails = () => {
   //Get the author id
   const targetId = data?.postFound?.userId;
   //get the login user id
-  const userId = profileData?.user.id;
+  const userId = profileData?.user?.id;
   //Get if the user/login is following the user
 
   // const { data: followunfollowdata, refetch: refetchFollowUnFollowData } =
