@@ -119,3 +119,22 @@ export const creatorRankings = async () => {
   const response = await axios.get(`${BASE_URL}/get-user-post-rankings`);
   return response.data;
 };
+
+///for notification
+export const getNotification = async () => {
+  const response = await axios.get(`${BASE_URL}/get-user-notification`, {
+    withCredentials: true,
+  });
+  return response.data;
+};
+
+export const updateNotification = async (notificationId) => {
+  const response = await axios.put(
+    `${BASE_URL}/update-user-notification/${notificationId}`,
+    {},
+    {
+      withCredentials: true,
+    }
+  );
+  return response.data;
+};

@@ -5,19 +5,20 @@ import {
 } from "../../APIServices/notifications/nofitificationsAPI";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
+import {
+  getNotification,
+  updateNotification,
+} from "../../APIServices/posts/postsAPI";
 const Notifications = () => {
-  const { data, refetch } = useQuery({
+  const { data: unreadNotifications, refetch } = useQuery({
     queryKey: ["notifications"],
-    queryFn: fetchNotificationsAPI,
+    queryFn: getNotification,
   });
-  //filter unread notifications
-  const unreadNotifications = data?.filter(
-    (notification) => notification?.isRead === false
-  );
+
   //mutation
   const mutation = useMutation({
     mutationKey: ["read-notification"],
-    mutationFn: readNotificationAPI,
+    mutationFn: updateNotification,
   });
 
   //read notification handler
@@ -37,20 +38,24 @@ const Notifications = () => {
           Notifications
         </div>
         <div className="max-h-96 mt-3 overflow-auto">
-          {unreadNotifications?.length === 0 ? (
+          {unreadNotifications?.unreadCount === 0 ? (
             <p className="text-center text-gray-600 py-4">
               No new notifications
             </p>
           ) : (
-            unreadNotifications?.map((notification) => (
+            unreadNotifications?.notifications.map((notification) => (
               <div
                 key={notification.id}
-                onClick={() => readNotificationHandler(notification?._id)}
+                onClick={() => readNotificationHandler(notification?.id)}
               >
                 <div className="border-b cursor-pointer border-gray-200 px-4 py-3 hover:bg-gray-50 transition duration-300 ease-in-out">
-                  <p className="text-sm text-gray-800 font-medium">
+                  {/* <p className="text-sm text-gray-800 font-medium">
                     {notification.message}
-                  </p>
+                  </p> */}
+                  <p
+                    className="text-sm text-gray-800 font-medium"
+                    dangerouslySetInnerHTML={{ __html: notification.message }}
+                  ></p>{" "}
                   <p className="text-xs text-gray-500 mt-1">
                     {new Date(notification.createdAt).toLocaleString()}
                   </p>
