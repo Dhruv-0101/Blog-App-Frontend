@@ -153,9 +153,7 @@ const Pricing = () => {
               <h2 className="text-xl font-bold font-heading mb-2">
                 What payment options are there?
               </h2>
-              <p className="text-gray-500">
-                You can pay by credit card, PayPal, or Stripe.
-              </p>
+              <p className="text-gray-500">You can pay by credit card</p>
             </div>
           </div>
           <div className="w-full lg:w-1/2 px-4">
@@ -163,9 +161,7 @@ const Pricing = () => {
               <h2 className="text-xl font-bold font-heading mb-2">
                 Are there a free trial?
               </h2>
-              <p className="text-gray-500">
-                Yes! We offer trial. Free and no credit card required.
-              </p>
+              <p className="text-gray-500">No! We Don't offer trial.</p>
             </div>
           </div>
         </div>

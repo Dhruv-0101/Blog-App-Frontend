@@ -26,8 +26,12 @@ export const paymentVerificationAPI = async (paymentId) => {
 };
 //!Free pln
 export const freePlanAPI = async () => {
-  const response = await axios.get(`${BASE_URL}/free-plan`, {
-    withCredentials: true,
-  });
+  const response = await axios.post(
+    `${BASE_URL}/free-plan`,
+    {},
+    {
+      withCredentials: true,
+    }
+  );
   return response.data;
 };
