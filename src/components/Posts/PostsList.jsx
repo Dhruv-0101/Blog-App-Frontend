@@ -170,6 +170,12 @@ const PostsList = () => {
                       <div className="py-1 px-2 rounded-md border border-gray-100 text-xs font-medium text-gray-700 inline-block">
                         {post?.category?.categoryName}
                       </div>
+                      {/* <div className="py-1 px-2 rounded-md border border-gray-100 text-xs font-medium text-gray-700 inline-block">
+                        📝 {post?.category?.user?.username}
+                      </div> */}
+                      <div className="py-1 px-2 rounded-md border border-gray-100 text-sm font-medium text-gray-700 inline-block">
+                        📝 {post?.category?.user?.username}
+                      </div>
                     </div>
                   </div>
                 </div>

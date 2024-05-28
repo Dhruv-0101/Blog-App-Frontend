@@ -277,7 +277,8 @@ const PostDetails = () => {
         )}
 
         {/* author */}
-        <span className="ml-2">{data?.postFound?.user?.username}</span>
+        {/* <span className="ml-2">{data?.postFound?.user?.username}</span> */}
+        <span className="ml-2">📝 {data?.postFound?.user?.username}</span>
 
         {/* post details */}
         <div className="flex justify-between items-center mb-3">
@@ -317,12 +318,12 @@ const PostDetails = () => {
         </form>
         {/* Comments List */}
         <div>
-          <h2 className="text-xl font-bold mb-2">Comments:</h2>
+          <h2 className="text-xl font-bold mb-2">Comments</h2>
           {commentData?.comments?.map((comment, index) => (
             <div key={index} className="border-b border-gray-300 mb-2 pb-2">
               <p className="text-gray-800">{comment.content}</p>
               <span className="text-gray-600 text-sm">
-                - {comment?.user?.username}
+                -🖋 {comment?.user?.username}
               </span>
               <small className="text-gray-600 text-sm ml-2">
                 {new Date(comment.createdAt).toLocaleDateString()}
