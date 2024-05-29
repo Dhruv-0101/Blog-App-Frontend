@@ -35,6 +35,7 @@ import DashboardPosts from "./components/User/DashboardPosts";
 import Settings from "./components/User/SettingsPage";
 import AddEmailComponent from "./components/User/UpdateEmail";
 import UploadProfilePic from "./components/User/UploadProfilePic";
+import LoginWithPassKey from "./components/User/LoginWithPassKey";
 
 function App() {
   // ! use query
@@ -198,6 +199,8 @@ function App() {
         <Route element={<CheckoutForm />} path="/checkout/:planId" />
         <Route element={<RequestResetPassword />} path="/forgot-password" />
         <Route element={<Rankings />} path="/ranking" />
+        <Route element={<LoginWithPassKey />} path="/login-with-passkey" />
+
         <Route
           element={<ResetPassword />}
           path="/reset-password/:verifyToken"
